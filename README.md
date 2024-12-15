@@ -1,27 +1,42 @@
-# DemoApp
+# Electron App with Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.1.
+This is a simple Electron app built with Angular to practice electron with Angular.
 
-## Development server
+## Installation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Install the dependencies with `npm install` and run `ng serve` to start the Angular app.
 
-## Code scaffolding
+Run `npm run electron` to start the Electron app.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Process of creating the Electron app with Angular
 
-## Build
+1. Install Angular CLI: `npm install -g @angular/cli`
+2. Create a new Angular app: `ng new demo-app`
+3. Install Electron: `npm install electron@latest --save-dev`
+4. Add `main.js` file from the [Electron Angular Tutorial](https://www.digitalocean.com/community/tutorials/angular-electron#installation) to `src` directory
+5. Add following to `package.json`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```json
+{
+  "main": "src/main.js",
+  "scripts": {
+    "electron": "ng build --base-href ./ && electron ."
+  }
+}
+```
 
-## Running unit tests
+6. Change `main.js` file and add the proper `pathname`:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```js
+win.loadURL(
+  url.format({
+    pathname: path.join(__dirname, "../dist/demo-app/browser/index.html"),
+    protocol: "file:",
+    slashes: true,
+  })
+);
+```
 
-## Running end-to-end tests
+7. Run `npm run electron` to run the electron app
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+8. Run `ng serve` to run the Angular app while making changes to the Electron app.
